@@ -25,7 +25,6 @@
   <br><br><br><br>
   <br><br><br><br>
   <br><br><br><br>
-  <br><br><br><br>
   <canvas id="myChart">お使いのブラウザはcanvasに対応していません。</canvas>
   <script>
   $('#myChart').on('inview', function() {
@@ -55,9 +54,10 @@
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
 
-              var padding = 5;
+              var padding = -20;
               var position = element.tooltipPosition();
               ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+              //ctx.fillText(dataString, position.x, position.y );
             });
           }
         });
@@ -128,8 +128,8 @@
         labels: ["2016年", "2020年", "2030年"],
         datasets: [{
           label: '人材数',
-          backgroundColor: "#121554",
-          borderColor: "#121554",
+          backgroundColor: "#94D6FF",
+          borderColor: "#94D6FF",
           data: [91.9, 92.3, 85.7]
         }, {
           label: '不足数',
@@ -169,6 +169,7 @@
          },
          legend: {
              display: true,
+             position: 'bottom',
              labels: {
                  fontColor: 'rgb(0, 0, 0)'
              }
