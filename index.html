@@ -26,8 +26,12 @@
   <br><br><br><br>
   <br><br><br><br>
   <canvas id="myChart">お使いのブラウザはcanvasに対応していません。</canvas>
-  <script>
-  $('#myChart').on('inview', function() {
+  <br><br>
+  <br><br>
+  <br><br>
+<script>
+$('#myChart').on('inview', function(event, isInView, visiblePartX, visiblePartY) {
+  if (isInView) {
     var ctx = document.getElementById("myChart").getContext('2d');
     // Define a plugin to provide data labels　棒グラフの上に数値を表示
     //http://www.chartjs.org/samples/latest/advanced/data-labelling.html
@@ -153,7 +157,6 @@
          },
         showAllTooltips: true,
         barPercentage:1, responsive: true,
-        legend: { display: false },
         scales: {
            xAxes: [{ display: true, stacked: true, gridLines: { display: false }, ticks: {fontSize: 17} }],
            yAxes: [{ display: true, stacked: true,
@@ -173,10 +176,14 @@
              labels: {
                  fontColor: 'rgb(0, 0, 0)'
              }
+         },
+         animation: {
+            duration: 5000
          }
       },
     });
-  });
-  </script>
+  }
+});
+</script>
 </body>
 </html>
