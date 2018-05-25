@@ -9,6 +9,11 @@
   <script src="jquery.inview.js"></script>
   <script src="Chart.bundle.js"></script>
   <title>chart API Test</title>
+  <style type="text/css">
+    #myChart{
+      max-width: 500px;
+    }
+  </style>
 </head>
 <body>
   <h1>チャートAPIテスト</h1>
@@ -46,7 +51,7 @@ $('#myChart').on('inview', function(event, isInView, visiblePartX, visiblePartY)
               // Draw the text in black, with the specified font
               ctx.fillStyle = 'rgb(0, 0, 0)';
 
-              var fontSize = 16;
+              var fontSize = 14;
               var fontStyle = 'normal';
               var fontFamily = 'Helvetica Neue';
               ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
