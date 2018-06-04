@@ -11,7 +11,13 @@
   <title>chart API Test</title>
   <style type="text/css">
     #myChart{
-     max-width: 500px;
+      max-width: 500px;
+    }
+    p.attention{
+      padding: 3px 5px;
+      background-color: #ccc;
+      font-weight: bold;
+      text-align: center;
     }
   </style>
 </head>
@@ -29,6 +35,8 @@
   <br><br><br><br>
   <br><br><br><br>
   <br><br><br><br>
+  <br><br><br><br>
+  <p class="attention">2019年をピークに産業人口は減少傾向に</p>
   <canvas id="myChart">お使いのブラウザはcanvasに対応していません。</canvas>
   <br><br>
   <br><br>
@@ -47,6 +55,7 @@ $('#myChart').on('inview', function(event, isInView, visiblePartX, visiblePartY)
           var meta = chart.getDatasetMeta(i);
           if (!meta.hidden) {
             meta.data.forEach(function(element, index) {
+
               // Draw the text in black, with the specified font
               ctx.fillStyle = 'rgb(0, 0, 0)';
 
@@ -55,17 +64,47 @@ $('#myChart').on('inview', function(event, isInView, visiblePartX, visiblePartY)
               var fontFamily = 'Helvetica Neue';
               ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
 
-              // Just naively convert to string for now
               var dataString = dataset.data[index].toString()+'万人';
 
               // Make sure alignment settings are correct
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
 
-              var padding = -20;
+              //var padding = 50;
               var position = element.tooltipPosition();
-              ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
-              //ctx.fillText(dataString, position.x, position.y );
+              //ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+              ctx.fillText(dataString, position.x, position.y);
+              // var array = [position.y];
+              // array.forEach(function (value, index) {
+              //   console.log(index + '番目 : ' + value);
+              // });
+
+              // var array_dmy = [];
+              // for(var i=0; i<5; i++){
+              //   array_dmy[i] = position.y;
+              // }
+              // console.log(position.y);
+              // let array = {};
+              // for(var i=0; i<1; i++){
+              //   array[i] = position.y;
+              // }
+              // console.log(array);
+              //console.log(dataString);
+              if(dataString == '91.9万人'){
+                var POSITIONY1 = position.y;
+              }
+
+              if(dataString == '17.1万人'){
+                console.log(POSITIONY1);
+                var POSITIONY2 = position.y;
+                position.y = (POSITIONY2+POSITIONY1)/2;
+              }
+              else if(index == '36.9万人'){
+                //console.log(position.y);
+              }
+              else if(index == '78.9万人'){
+                //console.log(position.y);
+              }
             });
           }
         });
@@ -90,6 +129,7 @@ $('#myChart').on('inview', function(event, isInView, visiblePartX, visiblePartY)
                         }, chart));
                     });
                 });
+
                 // turn off normal tooltips
                 chart.options.tooltips.enabled = false;
             }
@@ -129,17 +169,20 @@ $('#myChart').on('inview', function(event, isInView, visiblePartX, visiblePartY)
     //       y: tooltip.eventPosition.y + 10
     //     }
     //   }
+
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: ["2016年", "2020年", "2030年"],
         datasets: [{
           label: '人材数',
-          backgroundColor: "#94D6FF",
-          borderColor: "#94D6FF",
+          backgroundColor: "#5AD1E5",
+          borderColor: "#5AD1E5",
           data: [91.9, 92.3, 85.7]
         }, {
           label: '不足数',
+          backgroundColor: "#FFA76C",
+          borderColor: "#FFA76C",
           data: [17.1, 36.9, 78.9]
         }]
       },
@@ -161,12 +204,12 @@ $('#myChart').on('inview', function(event, isInView, visiblePartX, visiblePartY)
         showAllTooltips: true,
         barPercentage:1, responsive: true,
         scales: {
-           xAxes: [{ display: true, stacked: true, gridLines: { display: false }, ticks: {fontSize: 17} }],
+           xAxes: [{ display: true, stacked: true, gridLines: { display: false }, ticks: {fontSize: 14} }],
            yAxes: [{ display: true, stacked: true,
                     ticks: {
                       max: 190,
                       min: 10,
-                      stepSize: 20,
+                      stepSize: 30,
                         callback:function(value, index, values){
                           return value + '万人';
                         }
